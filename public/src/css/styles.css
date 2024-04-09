@@ -1,0 +1,179 @@
+:root {
+    --color_blue-dark: #1d1c28;
+    --color_green: #44ab96;
+    --color_green-dark: #2b6b5e;
+    --color_white: #f0f8ff;
+    --color_red: #c50000;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+    text-transform: initial;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: var(--color_blue-dark);
+    color: var(--color_white);
+}
+
+h1 {
+    font-size: 3rem;
+    margin: 0;
+}
+
+p {
+    font-size: 1.6rem;
+}
+
+input {
+    outline: none;
+    border: .1rem solid var(--color_green);
+    border-radius: 1rem;
+    background-color: transparent;
+    color: var(--color_white);
+    padding: 1rem;
+    width: 100%;
+    transition: border-color ease 80ms;
+}
+
+button {
+    border: none;
+    outline: none;
+    border-radius: 1rem;
+    padding: 1rem;
+    background-color: var(--color_green);
+    color: var(--color_white);
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color ease 80ms;
+
+    &:hover {
+        background-color: var(--color_green-dark);
+    }
+}
+
+/* Login */
+.PW-login {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    height: 100%;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.PW-login-logo {
+    display: flex;
+    flex-direction: row;
+    max-width: 30rem;
+    width: 100%;
+    justify-content: start;
+    align-items: flex-end;
+    gap: .8rem;
+
+    img {
+        height: 8rem;
+    }
+}
+
+.PW-login-form {
+    max-width: 30rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+}
+
+.PW-login-label {
+    display: flex;
+    flex-direction: row;
+    gap: .8rem;
+    align-items: center;
+    margin-bottom: 2px;
+    background-color: var(--color_blue-dark);
+    transform: translateY(8px) translateX(5px);
+    width: fit-content;
+    padding: .2rem;
+    border-radius: .2rem;
+
+    p {
+        font-size: 1.3rem;
+    }
+
+    img {
+        height: 1.4rem;
+    }
+}
+
+.PW-login-link {
+    color: var(--color_green);
+    cursor: pointer;
+    transition: color ease 80ms;
+
+    &:hover {
+        color: var(--color_green-dark);
+    }
+}
+
+.PW-login-text {
+    text-align: center;
+}
+
+/* dashboard */
+.PW-dashboard-header {
+    width: 100%;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: auto max-content;
+    align-items: center;
+}
+
+.PW-dashboard-logo {
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    justify-content: start;
+    align-items: flex-end;
+    gap: .8rem;
+
+    img {
+        height: 4rem;
+    }
+}
+
+.PW-dashboard-logOut {
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+    gap: .8rem;
+    cursor: pointer;
+
+    p:hover {
+        color: var(--color_green);
+    }
+
+    img {
+        height: 4rem;
+    }
+}
+
+/* Notification */
+.notyf__message {
+    font-size: 1.6rem;
+}
+
+.PW-hide {
+    display: none;
+}
+
+.PW-input-error {
+    border-color: var(--color_red);
+}

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password manager</title>
+    <link rel="shortcut icon" href="/src/images/icons/key.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+    <link rel="stylesheet" type="text/css" href="/src/css/normalizer.css" />
+    <link rel="stylesheet" type="text/css" href="/src/css/styles.css" />
+</head>
+
+<body>
+    <main class="PW-login">
+        <section class="PW-login-logo">
+            <img src="/src/images/icons/logo.svg" alt="logo">
+            <h1>Password <br> manager</h1>
+        </section>
+        <form id="login_form" class="PW-login-form">
+            <label>
+                <div class="PW-login-label">
+                    <img src="/src/images/icons/person-outline.svg" alt="user">
+                    <p>User</p>
+                </div>
+                <input type="text" name="user" placeholder="User" autofocus>
+            </label>
+            <label>
+                <div class="PW-login-label">
+                    <img src="/src/images/icons/key-outline.svg" alt="password">
+                    <p>Password</p>
+                </div>
+                <input type="password" name="password" placeholder="Main password">
+            </label>
+            <button type="submit">Unlock</button>
+            <p class="PW-login-text">Do not have an acount yet? <br> <span id="no_account" class="PW-login-link">Click
+                    her to
+                    create an
+                    acount</span></p>
+        </form>
+        <form id="create_form" class="PW-login-form PW-hide">
+            <label>
+                <div class="PW-login-label">
+                    <img src="/src/images/icons/person-outline.svg" alt="user">
+                    <p>Username</p>
+                </div>
+                <input type="text" name="user" placeholder="User" autocomplete="off" autofocus>
+            </label>
+            <label>
+                <div class="PW-login-label">
+                    <img src="/src/images/icons/key-outline.svg" alt="password">
+                    <p>Password</p>
+                </div>
+                <input type="password" name="password" placeholder="Password">
+            </label>
+            <label>
+                <div class="PW-login-label">
+                    <img src="/src/images/icons/key-outline.svg" alt="password">
+                    <p>Confirm password</p>
+                </div>
+                <input type="password" name="confirmPassword" placeholder="Confirm password">
+            </label>
+            <button type="submit">Create</button>
+            <p class="PW-login-text">already have an acount? <span id="have_account" class="PW-login-link"> Log
+                    in</span></p>
+        </form>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+    <script type="module" src="/src/js/login.js"></script>
+</body>
+
+</html>
