@@ -1,5 +1,7 @@
 :root {
-    --color_blue-dark: #1d1c28;
+    --color_blue-dark: #0d0d15;
+    --color_blue: #1d1c28;
+    --color_gray: #4c4d5d;
     --color_green: #44ab96;
     --color_green-dark: #2b6b5e;
     --color_white: #f0f8ff;
@@ -128,10 +130,12 @@ button {
 /* dashboard */
 .PW-dashboard-header {
     width: 100%;
-    padding: 1rem;
+    padding: 1.5rem 3rem;
     display: grid;
     grid-template-columns: auto max-content;
     align-items: center;
+    background-color: var(--color_blue);
+    border-bottom: 1px solid var(--color_gray);
 }
 
 .PW-dashboard-logo {
@@ -163,6 +167,22 @@ button {
     img {
         height: 4rem;
     }
+}
+
+.PW-dashboard {
+    padding: 2rem;
+}
+
+.PW-dashboard-cards {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.PW-dashboard-card {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
 }
 
 /* Notification */

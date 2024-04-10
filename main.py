@@ -14,9 +14,13 @@ router = APIRouter()
 @app.post("/api/sign-in")
 def try_login(data: dict = Body(...)):
     if data.get("user") and data.get("password"):
-        user = Users.select(["password"]).where(Users.username == data["user"])
-        print(user)
-        if user:
+        try:
+            user = Users.get(Users.user_name == data["user"])
+        except Exception as _e:
+            return {"success": False}
+        if bcrypt.checkpw(
+            data.get("password").encode("utf8"), user.password.encode("utf8")
+        ):
             payload = {"user": data["user"], "exp": datetime.now()}
             encoded_jwt = jwt.encode(payload, SECRET, algorithm="HS256")
             return {"success": True, "token": encoded_jwt}
@@ -37,12 +41,11 @@ def try_(data: dict = Body(...)):
             password_hash = bcrypt.hashpw(
                 data["password"].encode("utf-8"), bcrypt.gensalt(12)
             )
-            Users(username=data["user"], password=password_hash).save()
+            Users.create(user_name=data["user"], password=password_hash)
             payload = {"user": data["user"], "exp": datetime.now()}
             encoded_jwt = jwt.encode(payload, SECRET, algorithm="HS256")
             return {"success": True, "token": encoded_jwt}
-        except Exception as e:
-            print(e)
+        except Exception as _e:
             return {"success": False}
     else:
         return {"success": False}
