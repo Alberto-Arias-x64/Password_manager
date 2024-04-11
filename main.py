@@ -48,13 +48,13 @@ def get_bearer_token(request: Request):
     return auth_header.split(" ")[1]
 
 
-def validate_jwt(token: str) -> str | bool:
+def validate_jwt(token: str):
     try:
         payload = jwt.decode(token, SECRET, algorithms=["HS256"])
         return payload.get("user")
 
     except Exception as _e:
-        return False
+        return None
 
 
 @app.post("/api/sign-in")
