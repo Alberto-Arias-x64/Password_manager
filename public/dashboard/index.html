@@ -24,12 +24,18 @@
     </header>
     <main class="PW-dashboard">
         <section class="PW-dashboard-cards">
-            <div class="PW-dashboard-card">
-
-            </div>
+            <form class="PW-dashboard-card" id="password_form">
+                <input type="text" name="site" placeholder="Site" autocomplete="off">
+                <input type="text" name="user" placeholder="User" autocomplete="off">
+                <input type="text" name="password" placeholder="Password" autocomplete="off">
+                <div class="PW-dashboard-card-buttons">
+                    <button type="button" id="generate" class="secondary">Generate</button>
+                    <button type="submit">Create</button>
+                </div>
+            </form>
         </section>
     </main>
-    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+    <script src="/src/js/notify.js"></script>
     <script type="module" src="/src/js/dashboard.js"></script>
 </body>
 

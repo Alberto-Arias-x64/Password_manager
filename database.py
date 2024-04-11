@@ -20,7 +20,8 @@ class Users(__BaseModel):
 class Passwords(__BaseModel):
     user = ForeignKeyField(Users, on_delete="CASCADE")
     site = TextField(null=False)
-    passwords = TextField(null=False)
+    user_site = TextField(null=False)
+    password = TextField(null=False)
     create_at = DateField(default=datetime.now())
     update_at = DateField(default=datetime.now())
 
