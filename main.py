@@ -97,9 +97,14 @@ def read_item():
 @app.get("/api/validate")
 def validate_token(request: Request):
     token = get_bearer_token(request)
-    if validate_jwt(token):
-        return {"success": True}
-    return {"success": False}
+    decoded_token = validate_jwt(token)
+    try:
+        user = Users.get(Users.user_name == decoded_token)
+        if user:
+            return {"success": True}
+        return {"success": False}
+    except Exception as _e:
+        return {"success": False}
 
 
 @app.get("/api/password")
@@ -107,11 +112,10 @@ def getPasswords(request: Request):
     token = get_bearer_token(request)
     decoded_token = validate_jwt(token)
     if decoded_token:
-        passwords_list = Passwords.select().where(Passwords.user == decoded_token)
-        print(passwords_list)
+        user = Users.get(Users.user_name == decoded_token)
+        passwords_list = Passwords.select().where(Passwords.user == user.id)
         pw = []
         for password in passwords_list:
-            print(password)
             pw.append(
                 {
                     "site": password.site,

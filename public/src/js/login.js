@@ -1,5 +1,5 @@
 window.addEventListener('load', main)
-const notyf = new Notyf({ position: { x: 'center', y: 'bottom' } });
+const notyf = new Notyf({ position: { x: 'center', y: 'bottom' }, types: [{ type: 'success', background: '#44ab96' }] });
 
 function main() {
     if (window.localStorage.getItem('token')) window.location.href = '/dashboard'

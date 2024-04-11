@@ -23,20 +23,57 @@
         </section>
     </header>
     <main class="PW-dashboard">
-        <section class="PW-dashboard-cards">
-            <form class="PW-dashboard-card" id="password_form">
-                <input type="text" name="site" placeholder="Site" autocomplete="off">
-                <input type="text" name="user" placeholder="User" autocomplete="off">
-                <input type="text" name="password" placeholder="Password" autocomplete="off">
-                <div class="PW-dashboard-card-buttons">
-                    <button type="button" id="generate" class="secondary">Generate</button>
-                    <button type="submit">Create</button>
-                </div>
-            </form>
+        <section id="cards" class="PW-dashboard-cards">
+            <!-- Cards -->
         </section>
+        <form class="PW-dashboard-card" id="password_form">
+            <div class="PW-dashboard-input">
+                <img src="/src/images/icons/globe-outline.svg" alt="site">
+                <input type="text" name="site" placeholder="Site" autocomplete="off">
+            </div>
+            <div class="PW-dashboard-input">
+                <img src="/src/images/icons/person-outline.svg" alt="user">
+                <input type="text" name="user" placeholder="User" autocomplete="off">
+            </div>
+            <div class="PW-dashboard-input">
+                <img src="/src/images/icons/key-outline.svg" alt="password">
+                <input type="text" name="password" placeholder="Password" autocomplete="off">
+            </div>
+            <div class="PW-dashboard-card-buttons">
+                <button type="button" id="generate" class="secondary">Generate</button>
+                <button type="submit">Create</button>
+            </div>
+        </form>
     </main>
     <script src="/src/js/notify.js"></script>
     <script type="module" src="/src/js/dashboard.js"></script>
 </body>
 
 </html>
+
+
+<!-- <article id="${UUID}" class="PW-dashboard-card">
+    <div class="PW-dashboard-input">
+        <img src="/src/images/icons/globe-outline.svg" alt="site">
+        <h3>${data.site}</h3>
+    </div>
+    <hr>
+    <div class="PW-dashboard-card-data">
+        <div class="PW-dashboard-input-extended">
+            <img src="/src/images/icons/person-outline.svg" alt="user">
+            <p>${data.user}</p>
+            <img src="/src/images/icons/copy-outline.svg" class="PW-copy-user" alt="copy">
+        </div>
+        <hr>
+        <div class="PW-dashboard-input-extended">
+            <img src="/src/images/icons/key-outline.svg" alt="password">
+            <P>********</P>
+            <img src="/src/images/icons/copy-outline.svg" class="PW-copy-password" alt="copy">
+        </div>
+    </div>
+    <button>Actions</button>
+    <div class="PW-dashboard-card-buttons PW-hide">
+        <button type="button" class="red">Delete</button>
+        <button type="button">Edit</button>
+    </div>
+</article> -->
