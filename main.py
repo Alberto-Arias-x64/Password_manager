@@ -172,4 +172,10 @@ app.mount("/", StaticFiles(directory="public", html=True), name="public")
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app, port=int(PORT), access_log="critical", limit_max_requests=100)
+    uvicorn.run(
+        app,
+        host="0.0.0.0",
+        port=int(PORT),
+        access_log="critical",
+        limit_max_requests=100,
+    )
