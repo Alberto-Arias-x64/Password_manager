@@ -1,6 +1,5 @@
 from peewee import *
 from datetime import datetime
-import os
 
 db = SqliteDatabase("database.sqlite")
 
@@ -31,7 +30,3 @@ class Passwords(__BaseModel):
 
 db.connect()
 db.create_tables([Users, Passwords])
-
-# if __name__ == "__main__":
-#     import uvicorn
-#     uvicorn.run(app, port=8000)

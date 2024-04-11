@@ -2,16 +2,20 @@ from fastapi import FastAPI, APIRouter, Body, Request
 from fastapi.staticfiles import StaticFiles
 from database import Passwords, Users
 from datetime import datetime, timedelta
+from cryptography.fernet import Fernet
+from dotenv import load_dotenv
 from string import ascii_letters, digits, punctuation
 import random
 import bcrypt
 import json
 import jwt
+import os
 
-SECRET = "1234"
-
+load_dotenv()
+SECRET = os.getenv("KEY")
 app = FastAPI()
 router = APIRouter()
+f = Fernet(SECRET)
 
 
 def generate_password(
@@ -120,6 +124,7 @@ def getPasswords(request: Request):
                 {
                     "site": password.site,
                     "user": password.user_site,
+                    "password": f.decrypt(password.password),
                     "date": password.update_at,
                 }
             )
@@ -142,7 +147,7 @@ async def save_password(request: Request):
                 user=user.id,
                 site=data.get("site"),
                 user_site=data.get("user"),
-                password=data.get("password"),
+                password=f.encrypt(bytes(data.get("password").encode("utf-8"))),
             )
             return {"success": True}
         except Exception as e:
@@ -152,3 +157,8 @@ async def save_password(request: Request):
 
 
 app.mount("/", StaticFiles(directory="public", html=True), name="public")
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run(app, port=8000)
