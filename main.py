@@ -1,6 +1,6 @@
 from fastapi import FastAPI, APIRouter, Body, Request
 from fastapi.staticfiles import StaticFiles
-from database import Passwords, Users
+from database import Passwords, Users, db
 from datetime import datetime, timedelta
 from cryptography.fernet import Fernet
 from dotenv import load_dotenv
@@ -13,9 +13,15 @@ import os
 
 load_dotenv()
 SECRET = os.getenv("KEY")
+PORT = "0"
 app = FastAPI()
 router = APIRouter()
 f = Fernet(SECRET)
+
+if os.getenv("PORT"):
+    PORT = os.getenv("PORT")
+else:
+    PORT = "8000"
 
 
 def generate_password(
@@ -55,7 +61,8 @@ def validate_jwt(token: str) -> str | bool:
 def try_login(data: dict = Body(...)):
     if data.get("user") and data.get("password"):
         try:
-            user = Users.get(Users.user_name == data["user"])
+            with db.connection_context():
+                user = Users.get(Users.user_name == data["user"])
         except Exception as _e:
             return {"success": False}
         if bcrypt.checkpw(
@@ -82,7 +89,8 @@ def try_(data: dict = Body(...)):
             password_hash = bcrypt.hashpw(
                 data["password"].encode("utf-8"), bcrypt.gensalt(12)
             )
-            Users.create(user_name=data["user"], password=password_hash)
+            with db.connection_context():
+                Users.create(user_name=data["user"], password=password_hash)
             exp_datetime = datetime.now() + timedelta(hours=1)
             payload = {"user": data["user"], "exp": exp_datetime.timestamp()}
             encoded_jwt = jwt.encode(payload, SECRET, algorithm="HS256")
@@ -103,7 +111,8 @@ def validate_token(request: Request):
     token = get_bearer_token(request)
     decoded_token = validate_jwt(token)
     try:
-        user = Users.get(Users.user_name == decoded_token)
+        with db.connection_context():
+            user = Users.get(Users.user_name == decoded_token)
         if user:
             return {"success": True}
         return {"success": False}
@@ -116,8 +125,9 @@ def getPasswords(request: Request):
     token = get_bearer_token(request)
     decoded_token = validate_jwt(token)
     if decoded_token:
-        user = Users.get(Users.user_name == decoded_token)
-        passwords_list = Passwords.select().where(Passwords.user == user.id)
+        with db.connection_context():
+            user = Users.get(Users.user_name == decoded_token)
+            passwords_list = Passwords.select().where(Passwords.user == user.id)
         pw = []
         for password in passwords_list:
             pw.append(
@@ -141,7 +151,8 @@ async def save_password(request: Request):
     raw_data = await request.body()
     data = json.loads(raw_data)
     if data.get("site") and data.get("user") and data.get("password"):
-        user = Users.get(Users.user_name == decoded_token)
+        with db.connection_context():
+            user = Users.get(Users.user_name == decoded_token)
         try:
             Passwords.create(
                 user=user.id,
@@ -161,4 +172,4 @@ app.mount("/", StaticFiles(directory="public", html=True), name="public")
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app, port=8000)
+    uvicorn.run(app, port=int(PORT), access_log="critical", limit_max_requests=100)
