@@ -24,7 +24,7 @@ function uuid() {
 
 function generateTemplate(data) {
     const UUID = uuid()
-    const template = `<article id="${UUID}" class="PW-dashboard-card"><div class="PW-dashboard-input"><img src="/src/images/icons/globe-outline.svg" alt="site"><h3>${data.site}</h3></div><hr><div class="PW-dashboard-card-data"><div class="PW-dashboard-input-extended"><img src="/src/images/icons/person-outline.svg" alt="user"><p>${data.user}</p><img src="/src/images/icons/copy-outline.svg" class="PW-copy-user" alt="copy"></div><hr><div class="PW-dashboard-input-extended"><img src="/src/images/icons/key-outline.svg" alt="password"><p>********</p><img src="/src/images/icons/copy-outline.svg" data-pw="${data.password}" class="PW-copy-password" alt="copy"></div></div><button>Actions</button><div class="PW-dashboard-card-buttons PW-hide"><button type="button" class="red">Delete</button><button type="button">Edit</button></div></article>`
+    const template = `<article id="${UUID}" class="PW-dashboard-card"><div class="PW-dashboard-input"><img src="/src/images/icons/globe-outline.svg" alt="site"><h3>${data.site}</h3></div><hr><div class="PW-dashboard-card-data"><div class="PW-dashboard-input-extended"><img src="/src/images/icons/person-outline.svg" alt="user"><p>${data.user}</p><img src="/src/images/icons/copy-outline.svg" class="PW-copy-user" alt="copy"></div><hr><div class="PW-dashboard-input-extended"><img src="/src/images/icons/key-outline.svg" alt="password"><p>********</p><img src="/src/images/icons/copy-outline.svg" data-pw="${data.password}" class="PW-copy-password" alt="copy"></div></div><button class="PW-actions">Actions</button><div class="PW-dashboard-card-buttons PW-hide"><button type="button PW-delete" class="red">Delete</button><button type="button PW-edit">Edit</button></div></article>`
     return template
 }
 
@@ -44,20 +44,33 @@ function getList() {
                 cardsContainer.insertAdjacentHTML('beforeend', cards.join(',').replace(/\,/gm, ''))
                 const copyUserButtons = document.querySelectorAll('.PW-copy-user')
                 const copyPasswordButtons = document.querySelectorAll('.PW-copy-password')
+                const actionButtons = document.querySelectorAll('.PW-actions')
                 copyUserButtons.forEach(element => {
-                    element.addEventListener('click', (e) => {
-                        const text = e.target.parentElement.childNodes.item(1).textContent
+                    element.addEventListener('click', () => {
+                        const text = element.parentElement.childNodes.item(1).textContent
                         navigator.clipboard.writeText(text)
                         notyf.success('User copied')
                     })
                 })
                 copyPasswordButtons.forEach(element => {
-                    element.addEventListener('click', (e) => {
-                        const text = e.target.dataset.pw
+                    element.addEventListener('click', () => {
+                        const text = element.dataset.pw
                         navigator.clipboard.writeText(text)
                         notyf.success('Password copied')
                     })
                 })
+                actionButtons.forEach(element => {
+                    const brother = element.nextElementSibling
+                    element.addEventListener('click', () => {
+                        element.classList.add('PW-hide')
+                        brother.classList.remove('PW-hide')
+                    })
+                    brother.addEventListener('mouseleave', () => {
+                        element.classList.remove('PW-hide')
+                        brother.classList.add('PW-hide')
+                    })
+                })
+
             } else {
                 window.localStorage.clear()
                 window.location.href = '/'
