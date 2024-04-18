@@ -132,6 +132,7 @@ def getPasswords(request: Request):
         for password in passwords_list:
             pw.append(
                 {
+                    "id": password.id,
                     "site": password.site,
                     "user": password.user_site,
                     "password": f.decrypt(password.password),
@@ -165,6 +166,24 @@ async def save_password(request: Request):
             print(e)
             return {"success": False}
     return {"success": False}
+
+
+@app.delete("/api/password")
+async def delete_password(request: Request):
+    token = get_bearer_token(request)
+    decoded_token = validate_jwt(token)
+    if not decoded_token:
+        return {"success": False}
+    raw_data = await request.body()
+    data = json.loads(raw_data)
+    if not data.get("id"):
+        return {"success": False}
+    try:
+        Passwords.delete().where(Passwords.id == data.get("id")).execute()
+        return {"success": True}
+    except Exception as e:
+        print(e)
+        return {"success": False}
 
 
 app.mount("/", StaticFiles(directory="public", html=True), name="public")
