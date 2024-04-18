@@ -6,10 +6,12 @@ function main() {
     const logOut = document.querySelector('#logOut')
     const generate = document.querySelector('#generate')
     const passwordForm = document.querySelector('#password_form')
+    const addButton = document.querySelector('#PW-add')
 
     logOut.addEventListener('click', logOutFn)
     generate.addEventListener('click', generatePassword)
     passwordForm.addEventListener('submit', newPassword)
+    addButton.addEventListener('click', showModal)
 
     if (token) validateToken(token)
     else window.location.href = '/'
@@ -138,6 +140,11 @@ function validateToken(token) {
                 window.location.href = '/'
             }
         })
+}
+
+function showModal() {
+    const modal = document.querySelector('.PW-modal')
+    modal.style.display = 'flex'
 }
 
 function newPassword(e) {

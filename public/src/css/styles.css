@@ -271,6 +271,23 @@ button {
     gap: .5rem;
 }
 
+#PW-add {
+    cursor: pointer;
+    max-height: calc(171px + 40px);
+    display: flex;
+    place-content: center;
+    overflow: hidden;
+
+    img {
+        object-fit: contain;
+        transition: transform ease 100ms;
+    }
+
+    &:active img {
+        transform: scale(0.9);
+    }
+}
+
 /* Modal */
 .PW-modal {
     position: absolute;
