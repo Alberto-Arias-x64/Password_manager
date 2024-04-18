@@ -45,6 +45,8 @@ function getList() {
                 const copyUserButtons = document.querySelectorAll('.PW-copy-user')
                 const copyPasswordButtons = document.querySelectorAll('.PW-copy-password')
                 const actionButtons = document.querySelectorAll('.PW-actions')
+                const deleteButtons = document.querySelectorAll('.PW-delete')
+                const editButtons = document.querySelectorAll('.PW-edit')
                 copyUserButtons.forEach(element => {
                     element.addEventListener('click', () => {
                         const text = element.parentElement.childNodes.item(1).textContent
@@ -68,6 +70,16 @@ function getList() {
                     brother.addEventListener('mouseleave', () => {
                         element.classList.remove('PW-hide')
                         brother.classList.add('PW-hide')
+                    })
+                })
+                deleteButtons.forEach(element => {
+                    element.addEventListener('click', () => {
+                        alert("TODO Delete")
+                    })
+                })
+                editButtons.forEach(element => {
+                    element.addEventListener('click', () => {
+                        alert("TODO Edit")
                     })
                 })
 
