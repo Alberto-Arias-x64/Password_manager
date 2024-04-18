@@ -26,24 +26,26 @@
         <section id="cards" class="PW-dashboard-cards">
             <!-- Cards -->
         </section>
-        <form class="PW-dashboard-card" id="password_form">
-            <div class="PW-dashboard-input">
-                <img src="/src/images/icons/globe-outline.svg" alt="site">
-                <input type="text" name="site" placeholder="Site" autocomplete="off">
-            </div>
-            <div class="PW-dashboard-input">
-                <img src="/src/images/icons/person-outline.svg" alt="user">
-                <input type="text" name="user" placeholder="User" autocomplete="off">
-            </div>
-            <div class="PW-dashboard-input">
-                <img src="/src/images/icons/key-outline.svg" alt="password">
-                <input type="text" name="password" placeholder="Password" autocomplete="off">
-            </div>
-            <div class="PW-dashboard-card-buttons">
-                <button type="button" id="generate" class="secondary">Generate</button>
-                <button type="submit">Create</button>
-            </div>
-        </form>
+        <section class="PW-modal">
+            <form class="PW-dashboard-card" id="password_form">
+                <div class="PW-dashboard-input">
+                    <img src="/src/images/icons/globe-outline.svg" alt="site">
+                    <input type="text" name="site" placeholder="Site" autocomplete="off">
+                </div>
+                <div class="PW-dashboard-input">
+                    <img src="/src/images/icons/person-outline.svg" alt="user">
+                    <input type="text" name="user" placeholder="User" autocomplete="off">
+                </div>
+                <div class="PW-dashboard-input">
+                    <img src="/src/images/icons/key-outline.svg" alt="password">
+                    <input type="text" name="password" placeholder="Password" autocomplete="off">
+                </div>
+                <div class="PW-dashboard-card-buttons">
+                    <button type="button" id="generate" class="secondary">Generate</button>
+                    <button type="submit">Create</button>
+                </div>
+            </form>
+        </section>
     </main>
     <script src="/src/js/notify.js"></script>
     <script type="module" src="/src/js/dashboard.js"></script>

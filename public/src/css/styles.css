@@ -271,6 +271,20 @@ button {
     gap: .5rem;
 }
 
+/* Modal */
+.PW-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+}
+
 /* Notification */
 .notyf__message {
     font-size: 1.6rem;

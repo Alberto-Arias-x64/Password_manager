@@ -47,6 +47,7 @@ function getList() {
                 const actionButtons = document.querySelectorAll('.PW-actions')
                 const deleteButtons = document.querySelectorAll('.PW-delete')
                 const editButtons = document.querySelectorAll('.PW-edit')
+                const modal = document.querySelector('.PW-modal')
                 copyUserButtons.forEach(element => {
                     element.addEventListener('click', () => {
                         const text = element.parentElement.childNodes.item(1).textContent
@@ -96,7 +97,7 @@ function getList() {
                 })
                 editButtons.forEach(element => {
                     element.addEventListener('click', () => {
-                        alert("TODO Edit")
+                        modal.style.display = 'flex'
                     })
                 })
 
@@ -141,6 +142,7 @@ function validateToken(token) {
 
 function newPassword(e) {
     e.preventDefault()
+    const modal = document.querySelector('.PW-modal')
     const form = new FormData(e.target)
     const values = {}
     values.site = form.get('site')
@@ -160,6 +162,7 @@ function newPassword(e) {
             if (res.success) {
                 e.target.reset()
                 notyf.success('Account saved')
+                modal.style.display = 'none'
                 getList()
             } else notyf.error('Account already exist')
         })
