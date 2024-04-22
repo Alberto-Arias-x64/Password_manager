@@ -7,11 +7,13 @@ function main() {
     const generate = document.querySelector('#generate')
     const passwordForm = document.querySelector('#password_form')
     const addButton = document.querySelector('#PW-add')
+    const close = document.querySelector('.PW-modal-close')
 
     logOut.addEventListener('click', logOutFn)
     generate.addEventListener('click', generatePassword)
     passwordForm.addEventListener('submit', newPassword)
     addButton.addEventListener('click', showModal)
+    close.addEventListener('click', closeModal)
 
     if (token) validateToken(token)
     else window.location.href = '/'
@@ -147,9 +149,13 @@ function showModal() {
     modal.style.display = 'flex'
 }
 
+function closeModal() {
+    const modal = document.querySelector('.PW-modal')
+    modal.style.display = 'none'
+}
+
 function newPassword(e) {
     e.preventDefault()
-    const modal = document.querySelector('.PW-modal')
     const form = new FormData(e.target)
     const values = {}
     values.site = form.get('site')
@@ -169,7 +175,7 @@ function newPassword(e) {
             if (res.success) {
                 e.target.reset()
                 notyf.success('Account saved')
-                modal.style.display = 'none'
+                closeModal()
                 getList()
             } else notyf.error('Account already exist')
         })

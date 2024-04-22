@@ -302,6 +302,14 @@ button {
     backdrop-filter: blur(20px);
 }
 
+.PW-modal-close {
+    position: relative;
+    top: -5px;
+    right: -244px;
+    cursor: pointer;
+    width: fit-content;
+}
+
 /* Notification */
 .notyf__message {
     font-size: 1.6rem;
