@@ -78,7 +78,7 @@ def try_login(data: dict = Body(...)):
 
 
 @app.post("/api/sign-up")
-def try_(data: dict = Body(...)):
+def try_sign(data: dict = Body(...)):
     if (
         data.get("user")
         and data.get("password")
@@ -180,6 +180,33 @@ async def delete_password(request: Request):
         return {"success": False}
     try:
         Passwords.delete().where(Passwords.id == data.get("id")).execute()
+        return {"success": True}
+    except Exception as e:
+        print(e)
+        return {"success": False}
+
+
+@app.patch("/api/password")
+async def update_password(request: Request):
+    token = get_bearer_token(request)
+    decoded_token = validate_jwt(token)
+    if not decoded_token:
+        return {"success": False}
+    raw_data = await request.body()
+    data = json.loads(raw_data)
+    if not data.get("id"):
+        return {"success": False}
+    try:
+        Passwords.update(
+            {
+                Passwords.site: data.get("site"),
+                Passwords.user_site: data.get("user"),
+                Passwords.password: f.encrypt(
+                    bytes(data.get("password").encode("utf-8"))
+                ),
+                Passwords.update_at: datetime.now(),
+            }
+        ).where(Passwords.id == data.get("id")).execute()
         return {"success": True}
     except Exception as e:
         print(e)

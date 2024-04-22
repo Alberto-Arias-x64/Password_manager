@@ -32,6 +32,7 @@
         <section class="PW-modal">
             <form class="PW-dashboard-card" id="password_form">
                 <p class="PW-modal-close">❌</p>
+                <input type="text" name="id" hidden>
                 <div class="PW-dashboard-input">
                     <img src="/src/images/icons/globe-outline.svg" alt="site">
                     <input type="text" name="site" placeholder="Site" autocomplete="off">
@@ -46,7 +47,7 @@
                 </div>
                 <div class="PW-dashboard-card-buttons">
                     <button type="button" id="generate" class="secondary">Generate</button>
-                    <button type="submit">Create</button>
+                    <button type="submit" id="sendForm">Create</button>
                 </div>
             </form>
         </section>

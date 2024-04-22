@@ -12,7 +12,7 @@ function main() {
     logOut.addEventListener('click', logOutFn)
     generate.addEventListener('click', generatePassword)
     passwordForm.addEventListener('submit', newPassword)
-    addButton.addEventListener('click', showModal)
+    addButton.addEventListener('click', () => showModal(0))
     close.addEventListener('click', closeModal)
 
     if (token) validateToken(token)
@@ -51,7 +51,6 @@ function getList() {
                 const actionButtons = document.querySelectorAll('.PW-actions')
                 const deleteButtons = document.querySelectorAll('.PW-delete')
                 const editButtons = document.querySelectorAll('.PW-edit')
-                const modal = document.querySelector('.PW-modal')
                 copyUserButtons.forEach(element => {
                     element.addEventListener('click', () => {
                         const text = element.parentElement.childNodes.item(1).textContent
@@ -100,9 +99,11 @@ function getList() {
                     })
                 })
                 editButtons.forEach(element => {
-                    element.addEventListener('click', () => {
-                        modal.style.display = 'flex'
-                    })
+                    const id = element.parentElement.parentElement.id
+                    const site = element.parentElement.parentElement.children[0].children[1].textContent
+                    const user = element.parentElement.parentElement.children[2].children[0].children[1].textContent
+                    const password = element.parentElement.parentElement.children[2].children[2].children[2].dataset.pw
+                    element.addEventListener('click', () => showModal(id, site, user, password))
                 })
 
             } else {
@@ -144,9 +145,20 @@ function validateToken(token) {
         })
 }
 
-function showModal() {
+function showModal(id = 0, site = '', user = '', password = '') {
     const modal = document.querySelector('.PW-modal')
+    const formId = document.querySelector('[name=id]')
+    const formSite = document.querySelector('[name=site]')
+    const formUser = document.querySelector('[name=user]')
+    const formPassword = document.querySelector('[name=password]')
+    const text = document.querySelector('#sendForm')
     modal.style.display = 'flex'
+    formId.value = id
+    formSite.value = site
+    formUser.value = user
+    formPassword.value = password
+    if (id == 0) text.textContent = 'Create'
+    else text.textContent = 'Update'
 }
 
 function closeModal() {
@@ -158,27 +170,47 @@ function newPassword(e) {
     e.preventDefault()
     const form = new FormData(e.target)
     const values = {}
+    values.id = form.get('id')
     values.site = form.get('site')
     values.user = form.get('user')
     values.password = form.get('password')
 
     if (!values.user || !values.password || !values.site) return notyf.error('Please fill all fields')
     const token = window.localStorage.getItem('token')
-    window.fetch('/api/password', {
-        method: 'POST',
-        body: JSON.stringify(values),
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }
-    })
-        .catch(() => notyf.error('In this whe have problems, try again'))
-        .then(res => res.json())
-        .then(res => {
-            if (res.success) {
-                e.target.reset()
-                notyf.success('Account saved')
-                closeModal()
-                getList()
-            } else notyf.error('Account already exist')
+
+    if (values.id == 0) {
+        window.fetch('/api/password', {
+            method: 'POST',
+            body: JSON.stringify(values),
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }
         })
+            .catch(() => notyf.error('In this whe have problems, try again'))
+            .then(res => res.json())
+            .then(res => {
+                if (res.success) {
+                    e.target.reset()
+                    notyf.success('Account saved')
+                    closeModal()
+                    getList()
+                } else notyf.error('Account already exist')
+            })
+    } else {
+        window.fetch('/api/password', {
+            method: 'PATCH',
+            body: JSON.stringify(values),
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }
+        })
+            .catch(() => notyf.error('In this whe have problems, try again'))
+            .then(res => res.json())
+            .then(res => {
+                if (res.success) {
+                    e.target.reset()
+                    notyf.success('Account Updated')
+                    closeModal()
+                    getList()
+                } else notyf.error('Account have a problem')
+            })
+    }
 }
 
 function logOutFn() {

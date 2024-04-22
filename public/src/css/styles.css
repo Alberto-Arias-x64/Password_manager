@@ -204,10 +204,14 @@ button {
 
 .PW-dashboard {
     padding: 2rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
 .PW-dashboard-cards {
-    width: 100%;
+    width: auto;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -242,13 +246,13 @@ button {
 }
 
 .PW-dashboard-card {
-    max-width: 30rem;
-    min-width: 20rem;
-    width: 100%;
+    /*     max-width: 30rem;
+    min-width: 20rem; */
+    width: 30rem;
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
-    flex-basis: 0%;
+    /* flex-grow: 1;
+    flex-basis: 0%; */
     gap: 1rem;
     padding: 2rem;
     background: var(--color_blue);
